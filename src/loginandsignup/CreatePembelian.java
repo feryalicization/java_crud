@@ -20,6 +20,9 @@ public class CreatePembelian extends javax.swing.JFrame {
     /**
      * Creates new form CreatePembelian
      */
+    
+    private int userId;
+    
     public CreatePembelian() {
         initComponents();
     }
@@ -39,8 +42,8 @@ public class CreatePembelian extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jenis_transaksi = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        jumlah = new javax.swing.JPasswordField();
         createPembelian = new javax.swing.JButton();
+        jumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +76,9 @@ public class CreatePembelian extends javax.swing.JFrame {
             }
         });
 
+        jumlah.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jumlah.setForeground(new java.awt.Color(102, 102, 102));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +91,7 @@ public class CreatePembelian extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -94,9 +100,7 @@ public class CreatePembelian extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jenis_transaksi))
                         .addContainerGap(37, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jumlah)
-                        .addContainerGap())))
+                    .addComponent(jumlah)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,9 +117,9 @@ public class CreatePembelian extends javax.swing.JFrame {
                 .addComponent(jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
                 .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -148,8 +152,8 @@ public class CreatePembelian extends javax.swing.JFrame {
                 jumlah_ = jumlah.getText();
                 System.out.println(jumlah_);
 
-                query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah)"+
-                "VALUES('"+tanggal_+"', '"+jenis_transaksi_+"' , '"+jumlah_+"')";
+                query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah, created_at, created_by)"+
+                "VALUES('"+tanggal_+"', '"+jenis_transaksi_+"' , '"+jumlah_+"', '"+tanggal_+"', '"+userId+"')";
 
                 st.execute(query);
                 tanggal.setText("");
@@ -205,7 +209,11 @@ public class CreatePembelian extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createPembelian;
     private javax.swing.JLabel jLabel1;
@@ -213,7 +221,7 @@ public class CreatePembelian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField jenis_transaksi;
-    private javax.swing.JPasswordField jumlah;
+    private javax.swing.JTextField jumlah;
     private javax.swing.JTextField tanggal;
     // End of variables declaration//GEN-END:variables
 }

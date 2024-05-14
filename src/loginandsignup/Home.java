@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Rahemet
  */
 public class Home extends javax.swing.JFrame {
+    
+    private int userId;
 
     /**
      * Creates new form Home
@@ -164,7 +166,7 @@ public class Home extends javax.swing.JFrame {
             Class.forName("org.mariadb.jdbc.Driver");
 
             try (Connection con = DriverManager.getConnection(url, user, pass);
-                 PreparedStatement pst = con.prepareStatement("SELECT id, tanggal, jenis_transaksi, jumlah FROM transaksi");
+                 PreparedStatement pst = con.prepareStatement("SELECT id, tanggal, jenis_transaksi, jumlah FROM transaksi where deleted_at is null");
                  ResultSet rs = pst.executeQuery()) {
 
                 DefaultTableModel model = (DefaultTableModel) transaksiTable.getModel();
@@ -207,7 +209,8 @@ public class Home extends javax.swing.JFrame {
         CreatePembelian CreatePembelianFrame = new CreatePembelian();
         CreatePembelianFrame.setVisible(true);
         CreatePembelianFrame.pack();
-        CreatePembelianFrame.setLocationRelativeTo(null); 
+        CreatePembelianFrame.setLocationRelativeTo(null);
+        CreatePembelianFrame.setUserId(userId);
         this.dispose();
     }//GEN-LAST:event_createButton1ActionPerformed
 
@@ -234,9 +237,10 @@ public class Home extends javax.swing.JFrame {
             Class.forName("org.mariadb.jdbc.Driver");
 
             try (Connection con = DriverManager.getConnection(url, user, pass);
-                 PreparedStatement pst = con.prepareStatement("DELETE FROM transaksi WHERE id = ?")) {
-
-                pst.setInt(1, transactionId);
+                 PreparedStatement pst = con.prepareStatement("UPDATE transaksi SET deleted_at = NOW(), deleted_by = ? WHERE id = ?")) {
+                
+                pst.setInt(1, userId);
+                pst.setInt(2, transactionId);
 
                 int rowsAffected = pst.executeUpdate();
 
@@ -281,6 +285,7 @@ public class Home extends javax.swing.JFrame {
 
         // Open the EditPembelians window with the selected ID
         EditPembelian editPembelian = new EditPembelian(id);
+        editPembelian.setUserId(userId);
         editPembelian.setVisible(true);
 
         // Optionally, you can dispose of the current window (Home) after the EditPembelians window is shown
@@ -296,6 +301,12 @@ public class Home extends javax.swing.JFrame {
     public void setUser(String name){
         user.setText(name);
     }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    
     
     /**
      * @param args the command line arguments

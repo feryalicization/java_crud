@@ -23,6 +23,7 @@ public class EditPembelian extends javax.swing.JFrame {
      */
     
     private int id;
+    private int userId;
     
     public EditPembelian(int id) {
         initComponents();
@@ -198,12 +199,13 @@ public class EditPembelian extends javax.swing.JFrame {
         }
 
         try (Connection con = DriverManager.getConnection(url, user, pass)) {
-            String updateQuery = "UPDATE transaksi SET tanggal = ?, jenis_transaksi = ?, jumlah = ? WHERE id = ?";
+            String updateQuery = "UPDATE transaksi SET tanggal = ?, jenis_transaksi = ?, jumlah = ? , updated_at = NOW(), updated_by = ? WHERE id = ?";
             try (PreparedStatement pst = con.prepareStatement(updateQuery)) {
                 pst.setString(1, newTanggal);
                 pst.setString(2, newJenisTransaksi);
                 pst.setDouble(3, newJumlah);
-                pst.setInt(4, id);
+                pst.setInt(4, userId);
+                pst.setInt(5, id);
 
                 System.out.println("Executing SQL Query: " + pst.toString());
 
@@ -244,6 +246,10 @@ public class EditPembelian extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

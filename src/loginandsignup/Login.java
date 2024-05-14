@@ -210,6 +210,7 @@ public class Login extends javax.swing.JFrame {
         SUser = "root";
         SPass = "1234";
         int notFound = 0;
+        int userId = -1;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
@@ -228,6 +229,7 @@ public class Login extends javax.swing.JFrame {
        
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
+                userId = rs.getInt("id");
                 passDb = rs.getString("password");
                 fname = rs.getString("full_name");
                 notFound = 1;
@@ -244,6 +246,7 @@ public class Login extends javax.swing.JFrame {
                 if (hashedPassword.equals(passDb)) {
                 Home HomeFrame = new Home();
                 HomeFrame.setUser(fname);
+                HomeFrame.setUserId(userId);
                 HomeFrame.setVisible(true);
                 HomeFrame.pack();
                 HomeFrame.setLocationRelativeTo(null); 
