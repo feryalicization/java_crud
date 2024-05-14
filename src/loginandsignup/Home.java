@@ -262,6 +262,7 @@ public class Home extends javax.swing.JFrame {
     private void editButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButton1ActionPerformed
         // TODO add your handling code here:
         int selectedRow = transaksiTable.getSelectedRow();
+        this.dispose();
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(this, "Please select a row to edit.", "Error", JOptionPane.ERROR_MESSAGE);
         return;

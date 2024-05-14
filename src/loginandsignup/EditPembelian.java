@@ -210,9 +210,17 @@ public class EditPembelian extends javax.swing.JFrame {
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(this, "Transaction updated successfully!");
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to update transaction.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new Home().setVisible(true);
+                    }
+                });
+                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error updating transaction: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
