@@ -11,6 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
 
 /**
  *
@@ -43,12 +48,12 @@ public class EditPembelian extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        edit_tanggal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         editPembelian = new javax.swing.JButton();
         edit_jenis_transaksi = new javax.swing.JTextField();
         edit_jumlah = new javax.swing.JTextField();
+        edit_tanggal = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,14 +64,6 @@ public class EditPembelian extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Tanggal");
-
-        edit_tanggal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        edit_tanggal.setForeground(new java.awt.Color(102, 102, 102));
-        edit_tanggal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edit_tanggalActionPerformed(evt);
-            }
-        });
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -97,20 +94,24 @@ public class EditPembelian extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(198, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(edit_jenis_transaksi, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editPembelian, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edit_tanggal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edit_jumlah, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(117, 117, 117)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(edit_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8)
+                            .addComponent(edit_jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edit_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,18 +121,18 @@ public class EditPembelian extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(edit_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(edit_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(edit_jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(edit_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(37, 37, 37)
                 .addComponent(editPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,44 +149,42 @@ public class EditPembelian extends javax.swing.JFrame {
                 pst.setInt(1, id);
                 var rs = pst.executeQuery();
                 if (rs.next()) {
-                    edit_tanggal.setText(rs.getString("tanggal"));
-                    edit_jenis_transaksi.setText(rs.getString("jenis_transaksi"));
-                    edit_jumlah.setText(Double.toString(rs.getDouble("jumlah")));
-                    System.out.println("Data transaksi sikses for ID: " + id);
-                    System.out.println("Tanggal: " + rs.getString("tanggal"));
-                    System.out.println("Jenis Transaksi: " + rs.getString("jenis_transaksi"));
-                    System.out.println("Jumlah: " + rs.getDouble("jumlah"));
+                    String tanggalStr = rs.getString("tanggal");
+                    String jenisTransaksi = rs.getString("jenis_transaksi");
+                    double jumlah = rs.getDouble("jumlah");
+                    edit_jenis_transaksi.setText(jenisTransaksi);
+                    edit_jumlah.setText(Double.toString(jumlah));
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    java.util.Date parsedDate = dateFormat.parse(tanggalStr);
+                    Date tanggalDate = new Date(parsedDate.getTime());
+
+                    edit_tanggal.setDate(tanggalDate);
+                    System.out.println("Tanggal: " + tanggalStr);
+                    System.out.println("Jenis Transaksi: " + jenisTransaksi);
+                    System.out.println("Jumlah: " + jumlah);
                 } else {
                     JOptionPane.showMessageDialog(this, "Data not found for ID: " + id, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             JOptionPane.showMessageDialog(this, "Error fetching data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-        
-        
         
     }
     
     
     
-    private void edit_tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_tanggalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edit_tanggalActionPerformed
-
     private void editPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPembelianActionPerformed
-        
-        
         String url = "jdbc:mariadb://localhost:3307/test";
         String user = "root";
         String pass = "1234";
 
-        String newTanggal = edit_tanggal.getText();
         String newJenisTransaksi = edit_jenis_transaksi.getText();
         String newJumlahStr = edit_jumlah.getText();
 
-        if (newTanggal.isEmpty() || newJenisTransaksi.isEmpty() || newJumlahStr.isEmpty()) {
+        if (edit_tanggal.getDate() == null || newJenisTransaksi.isEmpty() || newJumlahStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -198,10 +197,13 @@ public class EditPembelian extends javax.swing.JFrame {
             return;
         }
 
+        java.util.Date selectedDate = edit_tanggal.getDate();
+        java.sql.Date newTanggal = new java.sql.Date(selectedDate.getTime());
+
         try (Connection con = DriverManager.getConnection(url, user, pass)) {
-            String updateQuery = "UPDATE transaksi SET tanggal = ?, jenis_transaksi = ?, jumlah = ? , updated_at = NOW(), updated_by = ? WHERE id = ?";
+            String updateQuery = "UPDATE transaksi SET tanggal = ?, jenis_transaksi = ?, jumlah = ?, updated_at = NOW(), updated_by = ? WHERE id = ?";
             try (PreparedStatement pst = con.prepareStatement(updateQuery)) {
-                pst.setString(1, newTanggal);
+                pst.setDate(1, newTanggal);       
                 pst.setString(2, newJenisTransaksi);
                 pst.setDouble(3, newJumlah);
                 pst.setInt(4, userId);
@@ -216,21 +218,19 @@ public class EditPembelian extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to update transaction.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         new Home().setVisible(true);
                     }
                 });
-                
+
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error updating transaction: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         
-        
-
     }//GEN-LAST:event_editPembelianActionPerformed
 
     /**
@@ -256,7 +256,7 @@ public class EditPembelian extends javax.swing.JFrame {
     private javax.swing.JButton editPembelian;
     private javax.swing.JTextField edit_jenis_transaksi;
     private javax.swing.JTextField edit_jumlah;
-    private javax.swing.JTextField edit_tanggal;
+    private com.toedter.calendar.JDateChooser edit_tanggal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

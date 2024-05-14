@@ -10,6 +10,11 @@ import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import java.sql.PreparedStatement;
+
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+
 
 /**
  *
@@ -38,12 +43,12 @@ public class CreatePembelian extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tanggal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jenis_transaksi = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
         createPembelian = new javax.swing.JButton();
-        jumlah = new javax.swing.JTextField();
+        tanggal = new com.toedter.calendar.JDateChooser();
+        jumlah1 = new javax.swing.JTextField();
+        jenis_transaksi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,9 +59,6 @@ public class CreatePembelian extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Tanggal");
-
-        tanggal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tanggal.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -76,8 +78,16 @@ public class CreatePembelian extends javax.swing.JFrame {
             }
         });
 
-        jumlah.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jumlah.setForeground(new java.awt.Color(102, 102, 102));
+        jumlah1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jumlah1.setForeground(new java.awt.Color(102, 102, 102));
+
+        jenis_transaksi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jenis_transaksi.setForeground(new java.awt.Color(102, 102, 102));
+        jenis_transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jenis_transaksiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,21 +96,23 @@ public class CreatePembelian extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                    .addComponent(jenis_transaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jumlah1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 156, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jenis_transaksi))
-                        .addContainerGap(37, Short.MAX_VALUE))
-                    .addComponent(jumlah)))
+                            .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,17 +121,17 @@ public class CreatePembelian extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addComponent(jumlah1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -136,44 +148,59 @@ public class CreatePembelian extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
-            Statement st = con.createStatement();
-            if("".equals(tanggal.getText())){
-                JOptionPane.showMessageDialog(new JFrame(), "Tanggal is require", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }else if("".equals(jenis_transaksi.getText())){
-                JOptionPane.showMessageDialog(new JFrame(), "Jenis Transaksi is require", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }else if("".equals(jumlah.getText())){
-                JOptionPane.showMessageDialog(new JFrame(), "Jumlah is require", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }else {
-                tanggal_ = tanggal.getText();
-                jenis_transaksi_ = jenis_transaksi.getText();
-                jumlah_ = jumlah.getText();
-                System.out.println(jumlah_);
 
-                query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah, created_at, created_by)"+
-                "VALUES('"+tanggal_+"', '"+jenis_transaksi_+"' , '"+jumlah_+"', '"+tanggal_+"', '"+userId+"')";
-
-                st.execute(query);
-                tanggal.setText("");
-                jenis_transaksi.setText("");
-                jumlah.setText("");
-                showMessageDialog(null, "Transaksi pembelian created successfully!");
-                this.dispose();
-
-                // Open a new instance of Home
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        new Home().setVisible(true);
-                    }
-                });
+            if (tanggal.getDate() == null) {
+                JOptionPane.showMessageDialog(new JFrame(), "Tanggal is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }catch(Exception e){
+
+            tanggal_ = new SimpleDateFormat("yyyy-MM-dd").format(tanggal.getDate());
+            jenis_transaksi_ = jenis_transaksi.getText();
+
+            // Parse the 'jumlah' value as a double
+            try {
+                double jumlahValue = Double.parseDouble(jumlah1.getText());
+                jumlah_ = String.valueOf(jumlahValue);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(new JFrame(), "Invalid input for jumlah", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah, created_at, created_by) " +
+                    "VALUES (?, ?, ?, NOW(), ?)";
+
+            try (PreparedStatement pst = con.prepareStatement(query)) {
+                pst.setString(1, tanggal_);
+                pst.setString(2, jenis_transaksi_);
+                pst.setString(3, jumlah_);
+                pst.setInt(4, userId); 
+
+                int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Transaksi pembelian created successfully!");
+                    this.dispose();
+                    // Open a new instance of Home
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new Home().setVisible(true);
+                        }
+                    });
+                } else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Failed to create transaction", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
             System.out.println("Error!" + e.getMessage());
         }
 
     }//GEN-LAST:event_createPembelianActionPerformed
+
+    private void jenis_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenis_transaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jenis_transaksiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,8 +247,8 @@ public class CreatePembelian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPasswordField jenis_transaksi;
-    private javax.swing.JTextField jumlah;
-    private javax.swing.JTextField tanggal;
+    private javax.swing.JTextField jenis_transaksi;
+    private javax.swing.JTextField jumlah1;
+    private com.toedter.calendar.JDateChooser tanggal;
     // End of variables declaration//GEN-END:variables
 }
