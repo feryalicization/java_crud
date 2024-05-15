@@ -285,6 +285,7 @@ public class Home extends javax.swing.JFrame {
         EditPembelian editPembelian = new EditPembelian(id);
         editPembelian.setUserId(userId);
         editPembelian.setVisible(true);
+        editPembelian.setLocationRelativeTo(null);
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Invalid ID format.", "Error", JOptionPane.ERROR_MESSAGE);
