@@ -250,7 +250,6 @@ public class EditPembelian extends javax.swing.JFrame {
                     }
                 }
 
-                // Open a new instance of Home
                 Home HomeFrame = new Home();
                 HomeFrame.setUser(fname);
                 HomeFrame.setUserId(userId);
