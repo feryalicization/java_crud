@@ -280,16 +280,12 @@ public class Home extends javax.swing.JFrame {
     }
 
     try {
-        // Convert the retrieved ID (which is a String) to an integer
         int id = Integer.parseInt(idObj.toString());
 
-        // Open the EditPembelians window with the selected ID
         EditPembelian editPembelian = new EditPembelian(id);
         editPembelian.setUserId(userId);
         editPembelian.setVisible(true);
 
-        // Optionally, you can dispose of the current window (Home) after the EditPembelians window is shown
-        // this.dispose();
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Invalid ID format.", "Error", JOptionPane.ERROR_MESSAGE);
     }

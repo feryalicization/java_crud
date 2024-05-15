@@ -45,10 +45,11 @@ public class CreatePembelian extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        createPembelian = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
         tanggal = new com.toedter.calendar.JDateChooser();
         jumlah1 = new javax.swing.JTextField();
-        jenis_transaksi = new javax.swing.JTextField();
+        jenis_transaksi = new javax.swing.JComboBox<>();
+        createPembelian1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,24 +69,33 @@ public class CreatePembelian extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Jumlah");
 
-        createPembelian.setBackground(new java.awt.Color(0, 102, 102));
-        createPembelian.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        createPembelian.setForeground(new java.awt.Color(255, 255, 255));
-        createPembelian.setText("Create");
-        createPembelian.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setBackground(new java.awt.Color(255, 51, 51));
+        cancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cancel.setForeground(new java.awt.Color(255, 255, 255));
+        cancel.setText("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createPembelianActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
 
         jumlah1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jumlah1.setForeground(new java.awt.Color(102, 102, 102));
 
-        jenis_transaksi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jenis_transaksi.setForeground(new java.awt.Color(102, 102, 102));
+        jenis_transaksi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pembelian", "penjualan" }));
         jenis_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jenis_transaksiActionPerformed(evt);
+            }
+        });
+
+        createPembelian1.setBackground(new java.awt.Color(0, 102, 102));
+        createPembelian1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        createPembelian1.setForeground(new java.awt.Color(255, 255, 255));
+        createPembelian1.setText("Create");
+        createPembelian1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPembelian1ActionPerformed(evt);
             }
         });
 
@@ -96,7 +106,6 @@ public class CreatePembelian extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jenis_transaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jumlah1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,9 +119,18 @@ public class CreatePembelian extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(97, 97, 97)
+                    .addComponent(createPembelian1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(372, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,22 +143,28 @@ public class CreatePembelian extends javax.swing.JFrame {
                 .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jenis_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jumlah1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(createPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(421, Short.MAX_VALUE)
+                    .addComponent(createPembelian1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(55, 55, 55)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPembelianActionPerformed
-        String tanggal_, jenis_transaksi_, jumlah_, query;
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        
+        String fname = null;
         String SUrl = "jdbc:mariadb://localhost:3307/test";
         String SUser = "root";
         String SPass = "1234";
@@ -148,59 +172,97 @@ public class CreatePembelian extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement st = con.createStatement();
 
-            if (tanggal.getDate() == null) {
-                JOptionPane.showMessageDialog(new JFrame(), "Tanggal is required", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-                return;
+            String query = "SELECT * FROM user WHERE id = " + userId;
+
+            ResultSet rs = st.executeQuery(query);
+            boolean userFound = false;
+
+            if (rs.next()) {
+                fname = rs.getString("full_name");
+                userFound = true;
             }
 
-            tanggal_ = new SimpleDateFormat("yyyy-MM-dd").format(tanggal.getDate());
-            jenis_transaksi_ = jenis_transaksi.getText();
-
-            // Parse the 'jumlah' value as a double
-            try {
-                double jumlahValue = Double.parseDouble(jumlah1.getText());
-                jumlah_ = String.valueOf(jumlahValue);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(new JFrame(), "Invalid input for jumlah", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah, created_at, created_by) " +
-                    "VALUES (?, ?, ?, NOW(), ?)";
-
-            try (PreparedStatement pst = con.prepareStatement(query)) {
-                pst.setString(1, tanggal_);
-                pst.setString(2, jenis_transaksi_);
-                pst.setString(3, jumlah_);
-                pst.setInt(4, userId); 
-
-                int rowsAffected = pst.executeUpdate();
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Transaksi pembelian created successfully!");
-                    this.dispose();
-                    // Open a new instance of Home
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new Home().setVisible(true);
-                        }
-                    });
-                } else {
-                    JOptionPane.showMessageDialog(new JFrame(), "Failed to create transaction", "Error",
+            if (userFound) {
+                Home HomeFrame = new Home();
+                HomeFrame.setUser(fname);
+                HomeFrame.setUserId(userId);
+                HomeFrame.setVisible(true);
+                HomeFrame.pack();
+                HomeFrame.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "User not found", "Error",
                         JOptionPane.ERROR_MESSAGE);
-                }
             }
+
         } catch (Exception e) {
             System.out.println("Error!" + e.getMessage());
+            e.printStackTrace();
         }
 
-    }//GEN-LAST:event_createPembelianActionPerformed
+    }//GEN-LAST:event_cancelActionPerformed
 
     private void jenis_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenis_transaksiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jenis_transaksiActionPerformed
+
+    private void createPembelian1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPembelian1ActionPerformed
+        // TODO add your handling code here:
+        String tanggal_, jenis_transaksi_, jumlah_, query;
+        String SUrl = "jdbc:mariadb://localhost:3307/test";
+        String SUser = "root";
+        String SPass = "1234";
+        String fname = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement st = con.createStatement();
+            if (tanggal.getDate() == null) {
+                JOptionPane.showMessageDialog(new JFrame(), "Tanggal is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if (jenis_transaksi.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(new JFrame(), "Jenis Transaksi is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if ("".equals(jumlah1.getText())) {
+                JOptionPane.showMessageDialog(new JFrame(), "Jumlah is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            } else {
+                java.util.Date selectedDate = tanggal.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                tanggal_ = sdf.format(selectedDate);
+                jenis_transaksi_ = (String) jenis_transaksi.getSelectedItem();  // Get selected item from JComboBox
+                jumlah_ = jumlah1.getText();
+
+                query = "INSERT INTO transaksi(tanggal, jenis_transaksi, jumlah, created_at, created_by) " +
+                        "VALUES('" + tanggal_ + "', '" + jenis_transaksi_ + "' , '" + jumlah_ + "', NOW(), '" + userId + "')";
+
+                st.execute(query);
+                tanggal.setDate(null);
+                jenis_transaksi.setSelectedIndex(0);
+                jumlah1.setText("");
+                showMessageDialog(null, "Transaksi pembelian created successfully!");
+                this.dispose();
+
+                query = "SELECT full_name FROM user WHERE id = " + userId;
+                ResultSet rs = st.executeQuery(query);
+                if (rs.next()) {
+                    fname = rs.getString("full_name");
+                }
+                Home HomeFrame = new Home();
+                HomeFrame.setUser(fname);
+                HomeFrame.setUserId(userId);
+                HomeFrame.setVisible(true);
+                HomeFrame.pack();
+                HomeFrame.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        } catch (Exception e) {
+            System.out.println("Error!" + e.getMessage());
+        }
+    }//GEN-LAST:event_createPembelian1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,13 +303,16 @@ public class CreatePembelian extends javax.swing.JFrame {
         this.userId = userId;
     }
     
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createPembelian;
+    private javax.swing.JButton cancel;
+    private javax.swing.JButton createPembelian1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jenis_transaksi;
+    private javax.swing.JComboBox<String> jenis_transaksi;
     private javax.swing.JTextField jumlah1;
     private com.toedter.calendar.JDateChooser tanggal;
     // End of variables declaration//GEN-END:variables
